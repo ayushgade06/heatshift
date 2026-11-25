@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { Block, HourPoint, Plan, SunTimes } from '../types';
 import { hhmm } from '../planner/plan';
 import { t, type Lang } from '../i18n/strings';
@@ -27,11 +28,20 @@ function Bars({ blocks, kind, label }: { blocks: Block[]; kind: 'usual' | 'plan'
 
 export function HeatStrip({ lang, hours, sun, windowStart, windowEnd, usual, plan }: { lang: Lang; hours: HourPoint[]; sun?: SunTimes; windowStart: number; windowEnd: number; usual: Block; plan: Plan | null }) {
   const byHour = new Map(hours.map((h) => [h.hour, h]));
+  const scroller = useRef<HTMLDivElement>(null);
+  // On narrow screens, start the ruler at the allowed working hours, not midnight.
+  useEffect(() => {
+    const el = scroller.current;
+    const cells = el?.querySelectorAll<HTMLElement>(".cell");
+    if (!el || !cells?.[windowStart] || el.scrollWidth <= el.clientWidth) return;
+    const label = el.querySelector<HTMLElement>(".row-label")?.offsetWidth ?? 0;
+    el.scrollLeft = cells[windowStart].getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft - label - 20;
+  }, [windowStart]);
   const rise = sunHour(sun?.sunrise);
   const set = sunHour(sun?.sunset);
   return (
     <div className="ruler-panel">
-      <div className="ruler-scroll" tabIndex={-1}>
+      <div className="ruler-scroll" ref={scroller}>
         <div className="ruler">
           <span aria-hidden style={{ gridArea: '1 / 1' }} />
           <div className="track ticks" aria-hidden style={{ gridArea: '1 / 2' }}>

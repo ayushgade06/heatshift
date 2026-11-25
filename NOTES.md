@@ -10,6 +10,56 @@ Built for **Code for Change** (Devpost, Nov 5 – Dec 1, 2026). Plan: `../HACKAT
 | M1 | Heat science core | ✅ |
 | M2 | Shift planner | ✅ (with safety-cap deviation, below) |
 | M3 | Open-Meteo client + demo snapshot | ✅ |
+| M4 | App shell & design system | ✅ |
+| M5 | Day plan (core experience) | ✅ |
+| M6 | Season replay | ✅ |
+| M7 | Crew card, sharing & languages (EN/HI/MR/ES) | ✅ (HI/MR/ES pending native-speaker review, below) |
+| M8 | Methodology page + week view | ✅ |
+| M9 | P1/P2 extras | Partial: shareable URL ✅, offline last forecast ✅, MR + ES ✅, Playwright e2e ✅. Skipped: P2 sun-exposed WBGT model, P2 machine-translation endpoint (see below). |
+| M10 | Reliability, polish & accessibility | ✅ (see checklist) |
+| M11 | Deployment & docs | see Deployment |
+| M12 | Demo & submission readiness | Screenshots + Devpost copy ready; video and Devpost submission are manual steps. |
+
+## Demo numbers (computed by the app, not typed)
+
+Settings: moderate work, 8 h needed, usual shift 09:00–17:00, allowed 06:00–19:00, up to two blocks. Data: Open-Meteo archive, Delhi (28.652, 77.231).
+
+| Scenario | Usual shift | HeatShift plan |
+|---|---|---|
+| **13 May 2024** (demo day) | 4 h Red/Black, 5 h 50 m work delivered, 2 h 10 m rest | **0 h** Red/Black, **8 h** work, 0 m extra rest (06:00–08:00 + 13:00–19:00) |
+| **May 2024, 31 days** | 165 h Red/Black, 163 h work | **127 h** Red/Black, **222 h** work (+59 h 10 m) |
+| May 2024: days the usual shift hit Red/Black | 24 / 31 | |
+| May 2024: days the full 8 h couldn't fit under the safety cap | | 10 / 31 |
+
+Other workloads, same month (from `scripts/probe.ts`): easy 165 → 92; heavy and very heavy stay at 165 (most extreme days have no cooler hours in the 06–19 window) but deliver more work. Widening the window to 05–20 takes moderate work to 165 → 89.
+
+## Translation review
+
+Hindi, Marathi and Spanish strings in `src/i18n/strings.ts` were drafted with AI assistance and have **not yet been reviewed by a native speaker**. The developer (Hindi/Marathi reader) must review the crew-card text (heat-illness signs, first aid, water) before submission. All numbers use Latin digits in every language so times, litres and dates read consistently.
+
+## Skipped (with reasons)
+
+- **P2 sun-exposed WBGT (Liljegren).** It must be validated against ≥3 published reference values before shipping, and there wasn't time to do that properly. Shipping it unvalidated would be worse than the clearly labelled BoM estimate.
+- **P2 `/api/translate` (Claude).** It would add the only server code and a secret. It would also produce unreviewed safety text, which is less safe than the fixed, reviewable templates. Not needed for the four supported languages.
+
+## QA checklist (M10)
+
+- [x] Unit/component: 49 tests green (`npm test`): science, planner (7 spec scenarios + property test + safety cap + perf), API (fixtures, nulls, errors, snapshot rules), season aggregation, i18n completeness, share URL validation, PlaceSearch keyboard, Day plan metrics = `planDay`, crew text ≤ 1000 chars in all languages.
+- [x] E2E: 4 Playwright tests green (`npm run test:e2e`): snapshot fallback → plan → counters 4 h → 0 h and 5 h 50 m → 8 h; language switch; season preset totals (165); invalid range validation; 360 px has no horizontal page scroll.
+- [x] Live data checked in Chrome: Delhi demo day (live archive), Delhi 7-day forecast (week view), season replay live (165 → 127 matches the snapshot run).
+- [x] Layout: 1366 px desktop and 360 px phone checked; ruler scrolls inside its own panel; inputs collapse on phones.
+- [x] Keyboard: tabs (arrow keys), place search combobox (arrows/Enter/Escape), heat cells focusable with full aria-labels, heatmap rows open with Enter/Space.
+- [x] Reduced motion: all animations and the counter tween are disabled under `prefers-reduced-motion`.
+- [x] Bundle: 94 KB gzipped JS, 5.5 KB CSS (budget 200 KB).
+- [x] No console errors in the e2e run (`pageerror` listener).
+- [ ] Lighthouse run on the deployed URL (manual).
+- [ ] Print preview on paper / phone WhatsApp share (manual, needs a phone).
+
+## Known issues
+
+- Read aloud depends on the device having a voice for the language; the button is hidden when none exists (common for Marathi on desktop).
+- Geolocation places are named by coordinates (Open-Meteo has no reverse geocoding).
+- The archive date limit (today − 5 days) is a conservative rule; Open-Meteo sometimes has more recent data.
 
 ## [VERIFY] record
 

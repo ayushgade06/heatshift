@@ -7,7 +7,7 @@ import { clean } from '../share';
 import { blockLabel } from './HeatStrip';
 
 export const fmtDate = (lang: Lang, iso: string, opts: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) =>
-  new Intl.DateTimeFormat(LANG_TAGS[lang], { ...opts, timeZone: 'UTC' }).format(new Date(`${iso.slice(0, 10)}T00:00:00Z`));
+  new Intl.DateTimeFormat(`${LANG_TAGS[lang]}-u-nu-latn`, { ...opts, timeZone: 'UTC' }).format(new Date(`${iso.slice(0, 10)}T00:00:00Z`));
 
 /** Consecutive plan hours that need rest, grouped by identical work/rest pattern. */
 export function breakRuns(plan: Plan) {
@@ -34,7 +34,7 @@ export interface CrewCardData {
   plan: Plan;
 }
 
-const litres = (lang: Lang, l: number) => new Intl.NumberFormat(LANG_TAGS[lang], { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(l);
+const litres = (lang: Lang, l: number) => new Intl.NumberFormat(`${LANG_TAGS[lang]}-u-nu-latn`, { maximumFractionDigits: 1, minimumFractionDigits: 1 }).format(l);
 
 /** Plain-text version for WhatsApp / clipboard / speech. Kept under 1000 chars. */
 export function crewText({ lang, place, date, workload, plan }: CrewCardData): string {

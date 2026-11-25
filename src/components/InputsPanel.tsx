@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import type { Workload } from '../types';
 import { WORKLOADS } from '../science/heatCategory';
 import { hhmm } from '../planner/plan';
@@ -40,10 +40,19 @@ function HourRange({ lang, legend, start, end, onChange }: { lang: Lang; legend:
 
 export function InputsPanel({ lang, inputs, onChange }: { lang: Lang; inputs: Inputs; onChange: (patch: Partial<Inputs>) => void }) {
   const id = useId();
+  // Collapsed by default on phones so the heat ruler is visible first.
+  const [open, setOpen] = useState(() => !window.matchMedia?.('(max-width: 900px)').matches);
   const step = (d: number) => onChange({ requiredHours: Math.min(12, Math.max(1, inputs.requiredHours + d)) });
   return (
-    <aside className="inputs" aria-label={t(lang, 'inputsTitle')}>
-      <h2>{t(lang, 'inputsTitle')}</h2>
+    <details className="inputs" open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
+      <summary>
+        <span>{t(lang, 'inputsTitle')}</span>
+        <small>
+          {t(lang, `wl_${inputs.workload}`)}, {inputs.requiredHours} {t(lang, 'hoursShort')}, {hhmm(inputs.usualStart)}–{hhmm(inputs.usualEnd)}
+        </small>
+      </summary>
+      <div className="inputs-body">
+        <h2>{t(lang, 'inputsTitle')}</h2>
 
       <fieldset className="field">
         <legend>{t(lang, 'workload')}</legend>
@@ -90,6 +99,7 @@ export function InputsPanel({ lang, inputs, onChange }: { lang: Lang; inputs: In
           ))}
         </div>
       </fieldset>
-    </aside>
+      </div>
+    </details>
   );
 }

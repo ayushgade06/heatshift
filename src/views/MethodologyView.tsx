@@ -77,7 +77,11 @@ export function MethodologyView() {
                     const cell = WORK_REST_TABLE[c][w];
                     return (
                       <td key={w}>
-                        {cell.work === 60 ? 'No limit' : `${cell.work}/${60 - cell.work}`}, {qt(cell.waterQt)} qt ({(cell.waterQt * QT_TO_L).toFixed(1)} L)
+                        <b>{cell.work === 60 ? 'No limit' : `${cell.work}/${60 - cell.work}`}</b>
+                        <br />
+                        <small className="water">
+                          {qt(cell.waterQt)} qt ({(cell.waterQt * QT_TO_L).toFixed(1)} L)
+                        </small>
                       </td>
                     );
                   })}

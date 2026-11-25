@@ -10,7 +10,8 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "typecheck": "tsc -b --noEmit",
-    "snapshot": "tsx scripts/fetch-demo-snapshot.ts"
+    "snapshot": "tsx scripts/fetch-demo-snapshot.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",
@@ -20,6 +21,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.13",
     "@types/node": "^24.19.2",

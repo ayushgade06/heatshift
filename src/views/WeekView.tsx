@@ -17,7 +17,7 @@ export function WeekView({ lang, place, forecast, days, options, onOpen, onRetry
         </h1>
         {best && (
           <p>
-            {t(lang, 'bestDay')}: <b>{fmtDate(lang, best.date, { weekday: 'long', day: 'numeric', month: 'long' })}</b>. Rows show each hour you allow work; blue outlines are the HeatShift plan for that day. Select a day to open its plan.
+            {t(lang, 'bestDay')}: <b>{fmtDate(lang, best.date, { weekday: 'long', day: 'numeric', month: 'long' })}</b>. Each row shows the hours you allow work. Hours outside the HeatShift plan are faded. Select a day to open its plan.
           </p>
         )}
       </div>

@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     include: ['src/**/*.test.{ts,tsx}'],
+    exclude: ['e2e/**', 'node_modules/**'],
     coverage: { include: ['src/science/**', 'src/planner/**', 'src/api/**', 'src/i18n/**', 'src/share.ts'] },
   },
 })
