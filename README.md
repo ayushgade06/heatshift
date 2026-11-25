@@ -8,7 +8,7 @@ HeatShift turns a real heat forecast into a safer shift for outdoor workers. It 
 >
 > **Season replay, Delhi, May 2024.** The usual shift spent **165 hours** in Red/Black heat over the month; HeatShift plans needed **127** and got **59 h 10 m more work** done within the rest rules. Every number is computed by the app from Open-Meteo data, not typed in.
 
-Live demo: _see the Devpost page_ · Built for [Code for Change](https://code-for-change-global.devpost.com/) (November 2026).
+**Live demo: https://heatshift-three.vercel.app** · Source: https://github.com/ayushgade06/heatshift · Built for [Code for Change](https://code-for-change-global.devpost.com/) (November 2026).
 
 ## The problem
 

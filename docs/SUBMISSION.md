@@ -51,8 +51,8 @@ Air temperature is the wrong number for safety: humidity and workload change the
 react, typescript, vite, open-meteo, svg, vitest, playwright, vercel
 
 ## Links
-- Live demo: `<Vercel URL>`
-- Source: `https://github.com/<you>/heatshift`
+- Live demo: https://heatshift-three.vercel.app
+- Source: https://github.com/ayushgade06/heatshift
 - Video: `<YouTube/Vimeo link>`
 
 ## Screenshots (in `docs/screenshots/`, with number captions)
@@ -81,7 +81,7 @@ react, typescript, vite, open-meteo, svg, vitest, playwright, vercel
 - [ ] Live URL works in an incognito window on desktop and phone
 - [ ] Re-check the headline numbers on the live URL
 - [ ] Native-speaker review of the Hindi/Marathi crew-card text
-- [ ] Repository public, README links updated with live + video URLs
+- [x] Repository public, README links updated with live URL (add the video URL when ready)
 - [ ] Video uploaded (≤ 3 min), linked
 - [ ] Team member listed; student ID ready for verification
 - [ ] Submitted before **Dec 1, 22:00 IST** (hard deadline Dec 2, 06:30 IST)

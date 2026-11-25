@@ -17,7 +17,7 @@ Built for **Code for Change** (Devpost, Nov 5 – Dec 1, 2026). Plan: `../HACKAT
 | M8 | Methodology page + week view | ✅ |
 | M9 | P1/P2 extras | Partial: shareable URL ✅, offline last forecast ✅, MR + ES ✅, Playwright e2e ✅. Skipped: P2 sun-exposed WBGT model, P2 machine-translation endpoint (see below). |
 | M10 | Reliability, polish & accessibility | ✅ (see checklist) |
-| M11 | Deployment & docs | see Deployment |
+| M11 | Deployment & docs | ✅ https://heatshift-three.vercel.app (Vercel, static) · https://github.com/ayushgade06/heatshift |
 | M12 | Demo & submission readiness | Screenshots + Devpost copy ready; video and Devpost submission are manual steps. |
 
 ## Demo numbers (computed by the app, not typed)
@@ -52,6 +52,7 @@ Hindi, Marathi and Spanish strings in `src/i18n/strings.ts` were drafted with AI
 - [x] Reduced motion: all animations and the counter tween are disabled under `prefers-reduced-motion`.
 - [x] Bundle: 94 KB gzipped JS, 5.5 KB CSS (budget 200 KB).
 - [x] No console errors in the e2e run (`pageerror` listener).
+- [x] Production: the 4 Playwright tests pass against https://heatshift-three.vercel.app (`BASE_URL=… npm run test:e2e`); the live archive and forecast load with no page errors.
 - [ ] Lighthouse run on the deployed URL (manual).
 - [ ] Print preview on paper / phone WhatsApp share (manual, needs a phone).
 
